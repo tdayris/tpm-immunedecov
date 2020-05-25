@@ -13,22 +13,43 @@ min_version('5.16.0')
 wrapper_version = '0.51.0'
 git = "https://raw.githubusercontent.com/tdayris/snakemake-wrappers/Unofficial"
 container: "docker://continuumio/miniconda3:5.0.1"
-configfile: "config.yaml"
+report: "reports/general_quanTIseq.rst"
+
 
 rule all:
     input:
-        multiext("quanTIseq/fractions", ".rds", ".tsv", ".histogram.png", ".dotplot.png")
+        multiext(
+            "quanTIseq/fractions",
+            ".rds", ".tsv", ".histogram.png", ".dotplot.png"
+        )
     message:
         "Finishing pipeline"
+
 
 rule deconvolute:
     input:
         expr_mat = config["expr_mat"]
     output:
-        rds = "quanTIseq/fractions.rds",
-        tsv = "quanTIseq/fractions.tsv",
-        histogram = "quanTIseq/fractions.histogram.png",
-        dotplot = "quanTIseq/fractions.dotplot.png",
+        rds = report(
+            "quanTIseq/fractions.rds",
+            category = "Results",
+            caption = "reports/rds.rst"
+        ),
+        tsv = report(
+            "quanTIseq/fractions.tsv",
+            category = "Results",
+            caption = "reports/tsv.rst"
+        ),
+        histogram = report(
+            "quanTIseq/fractions.histogram.png",
+            category = "Graphs",
+            caption = "reports/histogram.rst"
+        ),
+        dotplot = report(
+            "quanTIseq/fractions.dotplot.png",
+            category = "Graphs",
+            caption = "reports/dotplot.rst"
+        )
     message:
         "Performing deconvolution with quanTIseq"
     threads:

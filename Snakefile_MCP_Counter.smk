@@ -10,25 +10,45 @@ if sys.version_info < (3, 8):
     raise SystemError("Please use Python 3.8 or later")
 
 min_version('5.16.0')
-wrapper_version = '0.51.0'
 git = "https://raw.githubusercontent.com/tdayris/snakemake-wrappers/Unofficial"
 container: "docker://continuumio/miniconda3:5.0.1"
-configfile: "config.yaml"
+report: "reports/general_MCPcounter.rst"
+
 
 rule all:
     input:
-        multiext("MCPcounter/fractions", ".rds", ".tsv", ".histogram.png", ".dotplot.png")
+        multiext(
+            "MCPcounter/fractions",
+            ".rds", ".tsv", ".histogram.png", ".dotplot.png"
+        )
     message:
         "Finishing pipeline"
+
 
 rule deconvolute:
     input:
         expr_mat = config["expr_mat"]
     output:
-        rds = "MCPcounter/fractions.rds",
-        tsv = "MCPcounter/fractions.tsv",
-        histogram = "MCPcounter/fractions.histogram.png",
-        dotplot = "MCPcounter/fractions.dotplot.png",
+        rds = report(
+            "MCPcounter/fractions.rds",
+            category = "Results",
+            caption = "reports/rds.rst"
+        ),
+        tsv = report(
+            "MCPcounter/fractions.tsv",
+            category = "Results",
+            caption = "reports/tsv.rst"
+        ),
+        histogram = report(
+            "MCPcounter/fractions.histogram.png",
+            category = "Graphs",
+            caption = "reports/histogram.rst"
+        ),
+        dotplot = report(
+            "MCPcounter/fractions.dotplot.png",
+            category = "Graphs",
+            caption = "reports/dotplot.rst"
+        )
     message:
         "Performing deconvolution with MCP-Counter"
     threads:
