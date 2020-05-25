@@ -2,3 +2,4 @@ quanTIseq
 MCPcounter
 logs
 .snakemake
+*.html
