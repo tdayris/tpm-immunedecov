@@ -1,10 +1,11 @@
 ## Material and Method
 
-`quanTIseq <http://icbi.at/software/quantiseq/doc/index.html>`_ was used to perform deconvolution on TPM-normalized quantification, through the package `immunedeconv <https://github.com/icbi-lab/immunedeconv>`_.
+`EPIC <https://github.com/GfellerLab/EPIC>`_ was used to perform deconvolution on TPM-normalized quantification, through the package `immunedeconv <https://github.com/icbi-lab/immunedeconv>`_.
 
 quanTIseq allows both between-sample comparisons, and between-cell-type comparisons. Between-sample comparisons allow to make statements such as “In patient A, there are more CD8+ T cells than in patient B”. Between-cell-type comparisons allow to make statements such as “In a certain patient, there are more B cells than T cells”.
 
 The whole pipeline was powered by both `Snakemake <https://snakemake.readthedocs.io>`_ , and `Snakemake Wrappers <https://snakemake-wrappers.readthedocs.io/>`_ .
+
 ## Citations:
 
 
@@ -14,10 +15,10 @@ immunedeconv
   Why immunedeconv? immunedeconv is a R package designed to wrapp multiple deconvolution methods and craft them in a comparable format.
 
 
-quanTIseq
-  Finotello, F., Mayer, C., Plattner, C., Laschober, G., Rieder, D., Hackl, H., ..., Sopper, S. (2019). Molecular and pharmacological modulators of the tumor immune contexture revealed by deconvolution of RNA-seq data. Genome medicine, 11(1), 34. https://doi.org/10.1186/s13073-019-0638-6
+EPIC
+  Racle, J., de Jonge, K., Baumgaertner, P., Speiser, D. E., & Gfeller, D. (2017). Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data. ELife, 6, e26476. https://doi.org/10.7554/eLife.26476
 
-  Why quanTIseq? quanTIseq is a pipeline for the quantification of the Tumor Immune contexture designed for human RNA-seq data.
+  Why EPIC? EPIC is a method to estimate the proportion of immune, stromal, endothelial and cancer or other cells from bulk gene expression data.
 
 Snakemake
   Köster, Johannes and Rahmann, Sven. “Snakemake - A scalable bioinformatics workflow engine”. Bioinformatics 2012.
