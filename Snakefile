@@ -64,6 +64,10 @@ rule deconvolute:
         extra = config.get(
             "extra",
             "method = 'mcp_counter', tumor = TRUE, column = 'gene_symbol'"
+        ),
+        gene_col = config.get(
+            "gene_col",
+            "GENE"
         )
     log:
         f"logs/{config['tool']}/deconvolute.log"
