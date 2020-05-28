@@ -119,7 +119,6 @@ if ("dotplot" %in% base::names(snakemake@output)) {
     ggplot(aes(x=sample, y=score)) +
       geom_point(size=4) +
       facet_wrap(~cell_type, scales="free_x", ncol=3) +
-      scale_color_brewer(palette="Paired", guide=FALSE) +
       coord_flip() +
       theme_bw() +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)));
