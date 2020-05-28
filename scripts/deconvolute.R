@@ -97,7 +97,7 @@ if ("dotplot" %in% base::names(snakemake@output)) {
     ggplot(aes(x=sample, y=fraction, fill=cell_type)) +
       geom_bar(stat='identity') +
       coord_flip() +
-      scale_fill_brewer() +
+      scale_fill_brewer(palette="set1") +
       scale_x_discrete(limits = rev(levels(res_deconv))));
 
   dev.off();
