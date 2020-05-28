@@ -97,7 +97,7 @@ if ("dotplot" %in% base::names(snakemake@output)) {
     ggplot(aes(x=sample, y=fraction, fill=cell_type)) +
       geom_bar(stat='identity') +
       coord_flip() +
-      scale_fill_brewer(palette="Paired") +
+      scale_fill_brewer() +
       scale_x_discrete(limits = rev(levels(res_deconv))));
 
   dev.off();
@@ -116,7 +116,7 @@ if ("dotplot" %in% base::names(snakemake@output)) {
 
   print(res_deconv %>%
     gather(sample, score, -cell_type) %>%
-    ggplot(aes(x=sample, y=score, color=cell_type)) +
+    ggplot(aes(x=sample, y=score)) +
       geom_point(size=4) +
       facet_wrap(~cell_type, scales="free_x", ncol=3) +
       scale_color_brewer(palette="Paired", guide=FALSE) +
