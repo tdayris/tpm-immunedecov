@@ -140,6 +140,10 @@ def write_config(
         "gene_col": "Hugo_ID"
     }
 
+    if tool in ["cibersort_abs", "cibersort"]:
+        content["cibersort_binary"] = "/mnt/beegfs/software/cibersort/1.0.6/CIBERSORT.R"
+        content["cibersort_mat"] = "/mnt/beegfs/software/cibersort/1.0.6/LM22.txt"
+
     with Path(f"config.{tool_name}.yaml").open("w") as yamlfile:
         yamlfile.write(yaml.dump(content, default_flow_style=False))
 

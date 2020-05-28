@@ -13,7 +13,9 @@ min_version('5.16.0')
 git = "https://raw.githubusercontent.com/tdayris/snakemake-wrappers/Unofficial"
 container: "docker://continuumio/miniconda3:5.0.1"
 
-avail_tools = ["EPIC", "MCPcounter", "quanTIseq", "xCell", "TIMER"]
+avail_tools = ["EPIC", "MCPcounter", "quanTIseq",
+               "xCell", "TIMER", "CIBERSORT", "CIBERSORT_ABS"]
+
 if config["tool"] not in avail_tools:
     raise ValueError(
         f"Uknown tool called {config['tool']}. Available: {str(avail_tools)}"
@@ -23,9 +25,21 @@ if config["tool"] not in avail_tools:
 report: f"reports/general_{config['tool']}.rst"
 
 
+def provide_input(tool: str) -> Dict[str, str]:
+    content = {
+        "expr_mat": config["expr_mat"]
+    }
+
+    if tool in ["CIBERSORT", "CIBERSORT_ABS"]:
+        content["cibersort_binary"] = config["cibersort_binary"]
+        content["cibersort_mat"] = config["cibersort_mat"]
+
+    return content
+
+
 rule deconvolute:
     input:
-        expr_mat = config["expr_mat"]
+        **provide_input(config["tool"])
     output:
         rds = report(
             f"{config['tool']}/fractions.rds",
