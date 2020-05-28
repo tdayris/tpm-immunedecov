@@ -162,6 +162,8 @@ def main(args: argparse.ArgumentParser) -> None:
         "EPIC": "epic",
         "MCPcounter": "mcp_counter",
         "quanTIseq": "quantiseq",
+        "CIBERSORT_ABS": "cibersort_abs",
+        "CIBERSORT": "cibersort"
     }
     for k, v in tools.items():
         write_config(k, v, tpm_out)
