@@ -11,7 +11,7 @@ if sys.version_info < (3, 8):
 
 min_version('5.16.0')
 git = "https://raw.githubusercontent.com/tdayris/snakemake-wrappers/Unofficial"
-container: "docker://continuumio/miniconda3:5.0.1"
+container: "docker://conda/miniconda3:latest"
 
 avail_tools = ["EPIC", "MCPcounter", "quanTIseq",
                "xCell", "TIMER", "CIBERSORT", "CIBERSORT_ABS"]
