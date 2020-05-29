@@ -7,6 +7,8 @@ base::library(package="tibble", quietly=TRUE);
 base::library(package="readr", quietly=TRUE);
 base::library(package="ggplot2", quietly=TRUE);
 base::library(package="immunedeconv", quietly=TRUE);
+base::library(package="RColorBrewer", quietly=TRUE);
+library("randomcoloR");
 base::message("Libraries loaded");
 
 # Load dataset
@@ -37,6 +39,15 @@ if ("cibersort_mat" %in% base::names(snakemake@input)) {
   immunedeconv::set_cibersort_mat(
     snakemake@input[["cibersort_mat"]]
   );
+}
+
+colors = color = grDevices::colors()
+if (grepl("xcel", extra, fixed = TRUE)) {
+  colors <- sample(colors, 64)
+} else if ((grepl("civersort", extra, fixed = TRUE))) {
+  colors <- sample(colors, 22)
+} else {
+  colors <- sample(colors, 10)
 }
 
 cmd <- base::paste0(
@@ -97,7 +108,7 @@ if ("dotplot" %in% base::names(snakemake@output)) {
     ggplot(aes(x=sample, y=fraction, fill=cell_type)) +
       geom_bar(stat='identity') +
       coord_flip() +
-      scale_fill_brewer(palette="set1") +
+      scale_fill_manual(values = colors) +
       scale_x_discrete(limits = rev(levels(res_deconv))));
 
   dev.off();
