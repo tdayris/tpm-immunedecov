@@ -11,7 +11,7 @@ if sys.version_info < (3, 8):
 
 min_version('5.16.0')
 git = "https://raw.githubusercontent.com/tdayris/snakemake-wrappers/Unofficial"
-container: "truatpasteurdotfr/singularity-docker-anaconda3"
+container: "truatpasteurdotfr/singularity-docker-miniconda"
 
 avail_tools = ["EPIC", "MCPcounter", "quanTIseq",
                "xCell", "TIMER", "CIBERSORT", "CIBERSORT_ABS"]
