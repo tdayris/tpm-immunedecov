@@ -1,2 +1,3 @@
-#expr_mat: "/home/tdayris/Documents/Projects/B20012_HEHA_01/immunedeconv/TPM.tsv"
 expr_mat: "test.dataset.tsv"
+tool: "xCell"
+extra: "method = 'xcell', tumor = TRUE, column = 'gene_symbol'"

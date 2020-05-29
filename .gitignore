@@ -3,3 +3,4 @@ MCPcounter
 logs
 .snakemake
 *.html
+xCell
