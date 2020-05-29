@@ -17,8 +17,7 @@ CONDA_ACTIVATE   = source $$(conda info --base)/etc/profile.d/conda.sh ; conda a
 # Paths
 TEST_DATASET     = test.dataset.tsv
 ENV_YAML         = envs/workflow.yaml
-QUANTI_SNAKE     = Snakefile_quanTIseq.smk
-MCP_SNAKE        = Snakefile_MCPcounter.smk
+QUANTI_SNAKE     = Snakefile
 
 # Arguments
 PYTEST_ARGS      = -vv
@@ -26,7 +25,7 @@ ENV_NAME         = tpm-immunedeconv
 SNAKE_THREADS    = 1
 
 # Recipes
-default: quanTIseq_report.html
+default: report.html
 
 # Environment building through conda
 conda-tests:
@@ -35,7 +34,7 @@ conda-tests:
 	${CONDA} activate ${ENV_NAME}
 .PHONY: conda-tests
 
-quanTIseq_report.html:
+report.html:
 	${CONDA_ACTIVATE} ${ENV_NAME} && \
 	${SNAKEMAKE} -s ${QUANTI_SNAKE} --use-conda -j ${SNAKE_THREADS} --configfile ${PWD}/config.yaml --forceall --printshellcmds --reason && \
 	${SNAKEMAKE} -s ${QUANTI_SNAKE} --use-conda -j ${SNAKE_THREADS} --configfile ${PWD}/config.yaml --forceall --printshellcmds --reason --report quanTIseq_report.html

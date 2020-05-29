@@ -73,7 +73,7 @@ rule deconvolute:
             lambda wildcards, attempt: min(attempt * 20, 200)
         )
     conda:
-        "envs/mcp-counter.yaml"
+        "envs/immunedeconv.yaml"
     params:
         extra = config.get(
             "extra",
