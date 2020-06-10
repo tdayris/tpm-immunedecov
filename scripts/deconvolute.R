@@ -44,7 +44,7 @@ if ("cibersort_mat" %in% base::names(snakemake@input)) {
 colors = color = grDevices::colors()
 if (grepl("xcel", extra, fixed = TRUE)) {
   colors <- sample(colors, 64)
-} else if ((grepl("civersort", extra, fixed = TRUE))) {
+} else if ((grepl("cibersort", extra, fixed = TRUE))) {
   colors <- sample(colors, 22)
 } else {
   colors <- sample(colors, 10)
