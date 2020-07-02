@@ -41,13 +41,39 @@ if ("cibersort_mat" %in% base::names(snakemake@input)) {
   );
 }
 
-colors = color = grDevices::colors()
+colors = grDevices::colors()
+
 if (grepl("xcel", extra, fixed = TRUE)) {
-  colors <- sample(colors, 64)
+  #colors <- sample(colors, 64)
+  cool <- rainbow(
+      20,
+      start=rgb2hsv(col2rgb('cyan'))[1],
+      end=rgb2hsv(col2rgb('deeppink'))[1]
+  );
+  warm <- rainbow(
+    19,
+    start=rgb2hsv(col2rgb('red'))[1],
+    end=rgb2hsv(col2rgb('yellow'))[1]
+  );
+  colors <- c(rev(cool), rev(warm));
 } else if ((grepl("cibersort", extra, fixed = TRUE))) {
-  colors <- sample(colors, 22)
+  cool <- rainbow(
+      11,
+      start=rgb2hsv(col2rgb('cyan'))[1],
+      end=rgb2hsv(col2rgb('deeppink'))[1]
+  );
+  warm <- rainbow(
+    11,
+    start=rgb2hsv(col2rgb('red'))[1],
+    end=rgb2hsv(col2rgb('yellow'))[1]
+  );
+  colors <- c(rev(cool), rev(warm));
 } else {
-  colors <- sample(colors, 10)
+  colors <- rainbow(
+    11,
+    start=rgb2hsv(col2rgb('cyan'))[1],
+    end=rgb2hsv(col2rgb('blue'))[1]
+  );;
 }
 
 cmd <- base::paste0(
