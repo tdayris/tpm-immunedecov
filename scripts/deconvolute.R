@@ -58,19 +58,19 @@ if (grepl("xcel", extra, fixed = TRUE)) {
   colors <- c(rev(cool), rev(warm));
 } else if ((grepl("cibersort", extra, fixed = TRUE))) {
   cool <- rainbow(
-      11,
+      12,
       start=rgb2hsv(col2rgb('cyan'))[1],
       end=rgb2hsv(col2rgb('deeppink'))[1]
   );
   warm <- rainbow(
-    11,
+    12,
     start=rgb2hsv(col2rgb('red'))[1],
     end=rgb2hsv(col2rgb('yellow'))[1]
   );
   colors <- c(rev(cool), rev(warm));
 } else {
   colors <- rainbow(
-    11,
+    14,
     start=rgb2hsv(col2rgb('cyan'))[1],
     end=rgb2hsv(col2rgb('blue'))[1]
   );;
