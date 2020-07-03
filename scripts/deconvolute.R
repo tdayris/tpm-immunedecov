@@ -41,8 +41,9 @@ if ("cibersort_mat" %in% base::names(snakemake@input)) {
   );
 }
 
-colors = grDevices::colors()
-
+colors <- grDevices::colors()
+dotx <- 1024;
+doty <- 768;
 if (grepl("xcel", extra, fixed = TRUE)) {
   #colors <- sample(colors, 64)
   cool <- rainbow(
@@ -56,6 +57,7 @@ if (grepl("xcel", extra, fixed = TRUE)) {
     end=rgb2hsv(col2rgb('yellow'))[1]
   );
   colors <- c(rev(cool), rev(warm));
+  doty <- 2048;
 } else if ((grepl("cibersort", extra, fixed = TRUE))) {
   cool <- rainbow(
       12,
@@ -68,6 +70,7 @@ if (grepl("xcel", extra, fixed = TRUE)) {
     end=rgb2hsv(col2rgb('yellow'))[1]
   );
   colors <- c(rev(cool), rev(warm));
+  doty <- 2048;
 } else {
   colors <- rainbow(
     14,
@@ -120,7 +123,7 @@ if ("tsv" %in% base::names(snakemake@output)) {
 }
 
 # Plot graphs
-if ("dotplot" %in% base::names(snakemake@output)) {
+if ("histogram" %in% base::names(snakemake@output)) {
   png(
     filename = snakemake@output[["histogram"]],
     width = 1024,
@@ -145,8 +148,8 @@ if ("dotplot" %in% base::names(snakemake@output)) {
 if ("dotplot" %in% base::names(snakemake@output)) {
   png(
     filename = snakemake@output[["dotplot"]],
-    width = 1024,
-    height = 768,
+    width = dotx,
+    height = doty,
     units = "px",
     type = "cairo"
   );
