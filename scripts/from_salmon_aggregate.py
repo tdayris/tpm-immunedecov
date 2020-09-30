@@ -147,7 +147,7 @@ def write_config(
         "tool": tool_name,
         "extra": f"method = '{tool}', tumor = TRUE, column = 'gene_symbol'",
         "gene_col": "Hugo_ID",
-        "mouse:": mouse is True
+        "mouse": mouse is True
     }
 
     if tool in ["cibersort_abs", "cibersort"]:
