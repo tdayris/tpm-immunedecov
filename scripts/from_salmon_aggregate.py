@@ -53,6 +53,14 @@ def parser() -> argparse.ArgumentParser:
     )
 
     main_parser.add_argument(
+        "--mouse", "-m",
+        help="This input dataset contains mouse genes identifiers "
+             "that need to be translated to human ones.",
+        default=False,
+        action='store_true'
+    )
+
+    main_parser.add_argument(
         "--output", "-o",
         help="Path to output TSV file (default: %(default)s)",
         default="TPM.tsv",
@@ -128,7 +136,8 @@ def filter_tpm(tpm_in: Path, tpm_out: Path) -> None:
 def write_config(
         tool_name: str,
         tool: str,
-        tpm_out: str
+        tpm_out: str,
+        mouse: bool = False
     ) -> None:
     """
     Write a configuration file
@@ -137,7 +146,8 @@ def write_config(
         "expr_mat": str(tpm_out),
         "tool": tool_name,
         "extra": f"method = '{tool}', tumor = TRUE, column = 'gene_symbol'",
-        "gene_col": "Hugo_ID"
+        "gene_col": "Hugo_ID",
+        "mouse:": mouse is True
     }
 
     if tool in ["cibersort_abs", "cibersort"]:
@@ -167,7 +177,7 @@ def main(args: argparse.ArgumentParser) -> None:
         "xCell": "xcell"
     }
     for k, v in tools.items():
-        write_config(k, v, tpm_out)
+        write_config(k, v, tpm_out, args.mouse)
 
 
 # Running programm if not imported

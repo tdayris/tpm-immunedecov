@@ -26,15 +26,39 @@ report: f"reports/general_{config['tool']}.rst"
 
 
 def provide_input(tool: str) -> Dict[str, str]:
-    content = {
-        "expr_mat": config["expr_mat"]
-    }
+    content = {}
+
+    if config["mouse"] is True:
+        content["expr_mat"] = "hsa_translated_expression_matrix.tsv"
+    else:
+        content["expr_mat"] = config["expr_mat"]
 
     if tool in ["CIBERSORT", "CIBERSORT_ABS"]:
         content["cibersort_binary"] = config["cibersort_binary"]
         content["cibersort_mat"] = config["cibersort_mat"]
 
     return content
+
+
+rule convert_mouse_to_human:
+    input:
+        mouse = config["expr_mat"]
+    output:
+        temp("hsa_translated_expression_matrix.tsv")
+    message:
+        "Translating mouse genes identifiers"
+    params:
+        mgi_id = config.get(
+            "gene_col",
+            "GENE"
+        )
+    threads:
+        1
+    resources:
+        mem_mb = 1024 * 5,
+        time_min = 30
+    wrapper:
+        f"{git}/bio/biomaRt/mouse_to_human"
 
 
 rule deconvolute:
@@ -79,9 +103,10 @@ rule deconvolute:
             "extra",
             "method = 'mcp_counter', tumor = TRUE, column = 'gene_symbol'"
         ),
-        gene_col = config.get(
-            "gene_col",
-            "GENE"
+        gene_col = (
+            "HGNC.symbol"
+            if config["mouse"] else
+            config.get("gene_col","GENE")
         )
     log:
         f"logs/{config['tool']}/deconvolute.log"
