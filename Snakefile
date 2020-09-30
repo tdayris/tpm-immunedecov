@@ -40,27 +40,6 @@ def provide_input(tool: str) -> Dict[str, str]:
     return content
 
 
-rule convert_mouse_to_human:
-    input:
-        mouse = config["expr_mat"]
-    output:
-        temp("hsa_translated_expression_matrix.tsv")
-    message:
-        "Translating mouse genes identifiers"
-    params:
-        mgi_id = config.get(
-            "gene_col",
-            "GENE"
-        )
-    threads:
-        1
-    resources:
-        mem_mb = 1024 * 5,
-        time_min = 30
-    wrapper:
-        f"{git}/bio/biomaRt/mouse_to_human"
-
-
 rule deconvolute:
     input:
         **provide_input(config["tool"])
@@ -112,3 +91,24 @@ rule deconvolute:
         f"logs/{config['tool']}/deconvolute.log"
     script:
         f"scripts/deconvolute.R"
+
+
+rule convert_mouse_to_human:
+    input:
+        mouse = config["expr_mat"]
+    output:
+        temp("hsa_translated_expression_matrix.tsv")
+    message:
+        "Translating mouse genes identifiers"
+    params:
+        mgi_id = config.get(
+            "gene_col",
+            "GENE"
+        )
+    threads:
+        1
+    resources:
+        mem_mb = 1024 * 5,
+        time_min = 30
+    wrapper:
+        f"{git}/bio/biomaRt/mouse_to_human"
