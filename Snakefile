@@ -97,7 +97,8 @@ rule convert_mouse_to_human:
     input:
         mouse = config["expr_mat"]
     output:
-        translated = temp("hsa_translated_expression_matrix.tsv")
+        translated = temp("hsa_translated_expression_matrix.tsv"),
+        gene_table = temp("gene_translation_table.tsv")
     message:
         "Translating mouse genes identifiers"
     params:
